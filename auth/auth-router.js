@@ -29,9 +29,9 @@ router.post("/login", (req, res) => {
         res.status(401).json({ message: "invalid creds" });
       }
     })
-    .catch(
-      res.status(500).json({ message: "problem with the db", error: err })
-    );
+    .catch((err) => {
+      res.status(500).json({ message: "problem with the db", error: err });
+    });
 });
 
 module.exports = router;

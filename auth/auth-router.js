@@ -35,4 +35,14 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.send("uanble to logout");
+    } else {
+      res.send("logged out");
+    }
+  });
+});
+
 module.exports = router;

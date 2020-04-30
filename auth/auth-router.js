@@ -14,7 +14,23 @@ router.post("/register", (req, res) => {
       res.status(201).json({ saved });
     })
     .catch((err) =>
-      res.status(500).json({ message: "problem with the dbb", error: err })
+      res.status(500).json({ message: "problem with the db", error: err })
+    );
+});
+
+router.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  Users.findBy({ username })
+    .then(([user]) => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        res.status(200).json({ message: "Welcome!" });
+      } else {
+        res.status(401).json({ message: "invalid creds" });
+      }
+    })
+    .catch(
+      res.status(500).json({ message: "problem with the db", error: err })
     );
 });
 
